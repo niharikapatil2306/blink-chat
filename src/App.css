@@ -1,0 +1,4 @@
+.activebutton{
+  --bs-btn-active-bg: #baaad4;
+  --bs-btn-active-border-color: transparent;
+}
