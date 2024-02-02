@@ -14,6 +14,7 @@ export default function Welcome(props) {
         signInWithRedirect(auth, provider);
     }
 
+
     return(
         <Container fluid className="h-screen g-0 flex flex-col">
             <Navigation />
@@ -23,7 +24,7 @@ export default function Welcome(props) {
                 :
                 (
                     <Button onClick={handleClick} 
-                    className="bg-blue-100 flex border-0">
+                        className="bg-blue-100 flex border-0">
                         <img src={google} alt="" />
                         Sign in with Google
                     </Button>
