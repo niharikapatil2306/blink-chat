@@ -1,34 +1,52 @@
 import { Button, Container } from "react-bootstrap";
 import Navigation from "./Navigation";
 import google from "../assets/google.svg";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { collection, addDoc, setDoc } from "firebase/firestore";
 
 export default function Welcome(props) {
 
     const [user] = useAuthState(auth);
 
-    const handleClick = () =>{
-        const provider = new GoogleAuthProvider();
-        signInWithRedirect(auth, provider);
-    }
+    const navigate = useNavigate()
+
+    const handleClick = async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            const credential = await signInWithRedirect(auth, provider);
+            const { user } = credential;
+            if (user) {
+                await setDoc(collection(db, "users"), {
+                    name: user.displayName,
+                    id: user.uid,
+                });
+            }
+            // navigate('/');
+        } catch (error) {
+            console.error("Error signing in with Google:", error);
+        }
+    };
 
 
-    return(
+    return (
         <Container fluid className="h-screen g-0 flex flex-col">
             <Navigation />
             <div className="flex-grow flex flex-wrap justify-center content-center">
-                {user?
-                (<></>)
-                :
-                (
-                    <Button onClick={handleClick} 
-                        className="bg-blue-100 flex border-0">
-                        <img src={google} alt="" />
-                        Sign in with Google
-                    </Button>
-                )}
+                {user ?
+                    (<></>)
+                    :
+                    (
+                        <Button onClick={handleClick}
+                            className="rounded-md font-semibold flex bg-[#c2a0b6] border-0 hover:bg-[#baaad4] activebutton">
+                            <img src={google} alt="" />
+                            <p className="mx-2 my-auto">
+                                Sign in with Google
+                            </p>
+                        </Button>
+                    )}
             </div>
         </Container>
     );

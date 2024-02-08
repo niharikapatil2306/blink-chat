@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button, Container, Form, FormControl, FormLabel } from "react-bootstrap";
 import { auth, db } from "../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp } from "firebase/firestore";
 
-export default function SendMessage() {
+export default function SendMessage(props) {
 
   const [message, setMessage] = useState("");
 
@@ -14,8 +14,10 @@ export default function SendMessage() {
       return;
     }
 
+    const roomId = doc(collection(db, "rooms"),props.roomId)
+
     const { uid, displayName, photoURL } = auth.currentUser;
-    await addDoc(collection(db, "messages"), {
+    await addDoc(collection(roomId, "messages"), {
       text: message,
       name: displayName,
       avatar: photoURL,
