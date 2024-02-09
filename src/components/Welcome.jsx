@@ -13,18 +13,12 @@ export default function Welcome(props) {
 
     const navigate = useNavigate()
 
-    const handleClick = async () => {
+    const handleClick = async (e) => {
+        e.preventDefault();
         try {
             const provider = new GoogleAuthProvider();
             const credential = await signInWithRedirect(auth, provider);
-            const { user } = credential;
-            if (user) {
-                await setDoc(collection(db, "users"), {
-                    name: user.displayName,
-                    id: user.uid,
-                });
-            }
-            // navigate('/');
+            navigate('/');
         } catch (error) {
             console.error("Error signing in with Google:", error);
         }
@@ -35,7 +29,7 @@ export default function Welcome(props) {
         <Container fluid className="h-screen g-0 flex flex-col">
             <Navigation />
             <div className="flex-grow flex flex-wrap justify-center content-center">
-                {user ?
+                {auth.currentUser ?
                     (<></>)
                     :
                     (

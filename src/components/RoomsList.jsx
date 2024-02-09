@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { collection, doc, getDoc, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, onSnapshot, setDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { Link } from "react-router-dom";
 
@@ -10,6 +10,13 @@ export default function RoomsList() {
     const [roomInUser, setRoomInUser] = useState(false)
 
     const fetchRooms = async () => {
+
+        if (auth.currentUser) {
+            await setDoc(doc(collection(db, "users"), auth.currentUser.uid), {
+                name: auth.currentUser.displayName,
+            });
+        }
+
         const roomsRef = collection(db, "rooms")
         const roomsSnapshot = await getDocs(roomsRef);
         const roomList = roomsSnapshot.docs.map(async (doc) => { 
