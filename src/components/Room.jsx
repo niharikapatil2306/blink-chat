@@ -3,13 +3,41 @@ import Navigation from "./Navigation";
 import ChatBox from "./Chatbox";
 import { Col, Container, Row } from "react-bootstrap";
 import RoomsList from "./RoomsList";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import Welcome from "./Welcome";
+import { collection, doc, getDoc, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 export default function Room() {
 
     const { roomId } = useParams();
+    let roomInUser = false
+    const [show, setshow] = useState(false)
+    const [loading, setLoading] = useState(true);
 
+    const fetchRooms = async () => {
+        try {
+            const rooms = await getDoc(doc(collection(db, "rooms"), roomId));
+            if (rooms.exists()) {
+                const display = () => rooms.data().users.includes(auth.currentUser.uid);
+                roomInUser = display();
+            }
+        } catch (err) {
+            console.log(`Error getting documents ${err}`);
+        }
+        setshow(roomInUser) 
+    };
+
+    useEffect(() => {
+
+            const unsubscribe = onSnapshot((collection(db, 'rooms')), (snapshot) => {
+                fetchRooms();
+                
+                
+            });
+            return () => unsubscribe();
+
+    }, [auth.currentUser, roomId]);
 
     return (
 
@@ -23,7 +51,7 @@ export default function Room() {
                                     <RoomsList />
                                 </Col>
                                 <Col>
-                                    <ChatBox roomId={roomId} />
+                                    {show && <ChatBox roomId={roomId} />}
                                 </Col>
                             </Row>
                         </Container>

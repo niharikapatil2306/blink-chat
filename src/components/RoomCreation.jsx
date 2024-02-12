@@ -4,6 +4,7 @@ import { useState } from "react";
 import { addDoc, collection, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import Welcome from "./Welcome";
 
 export default function RoomCreation() {
 
@@ -43,7 +44,8 @@ export default function RoomCreation() {
 
 
     return (
-        <>
+        (auth.currentUser?
+            <>
             <Navigation />
             <Form className="my-8" onSubmit={handleSubmit}>
                 <FormControl type="text" value={name}
@@ -57,5 +59,7 @@ export default function RoomCreation() {
                 </Button>
             </Form>
         </>
+        :
+        <Welcome />)
     );
 }

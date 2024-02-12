@@ -8,6 +8,7 @@ export default function RoomsList() {
 
     const [rooms, setRooms] = useState([]);
     const [roomInUser, setRoomInUser] = useState(false)
+    const [loading, setLoading] = useState(true);
 
     const fetchRooms = async () => {
 
@@ -21,7 +22,7 @@ export default function RoomsList() {
             const roomsSnapshot = await getDocs(roomsColRef);
             const roomList = [];
             
-            const list = roomsSnapshot.docs.map(async (doc) => {
+            const list = roomsSnapshot.docs.forEach((doc) => {
                 const data = doc.data()
                 const filter = data.users.includes(auth.currentUser.uid)
                 if(filter){
@@ -30,18 +31,15 @@ export default function RoomsList() {
             });
 
             setRooms(roomList)
+            setRoomInUser(rooms.length>0);
+            setLoading(false);
         
         } catch (err) { 
            
             console.log(`Error getting documents ${err}`);
         }
 
-        if(rooms.length>0){
-            setRoomInUser(true)
-        }
-
     };
-
 
     useEffect(() => {
 
@@ -51,7 +49,11 @@ export default function RoomsList() {
             });
             return () => unsubscribe();
 
-    }, [auth.currentUser]);
+    }, [auth.currentUser, loading]);
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <>
