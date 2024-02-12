@@ -5,7 +5,6 @@ import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { collection, addDoc, setDoc } from "firebase/firestore";
 
 export default function Welcome(props) {
 
@@ -17,7 +16,7 @@ export default function Welcome(props) {
         e.preventDefault();
         try {
             const provider = new GoogleAuthProvider();
-            const credential = await signInWithRedirect(auth, provider);
+            await signInWithRedirect(auth, provider);
             navigate('/');
         } catch (error) {
             console.error("Error signing in with Google:", error);

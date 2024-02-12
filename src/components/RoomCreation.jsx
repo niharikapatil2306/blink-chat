@@ -1,7 +1,7 @@
 import { Button, Form, FormControl } from "react-bootstrap";
 import Navigation from "./Navigation";
 import { useState } from "react";
-import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -27,6 +27,7 @@ export default function RoomCreation() {
             await updateDoc(roomRef, {
                 roomId: roomRef.id
             });
+            const roomdata =await getDoc(roomRef,roomRef.id)
 
             navigate(`/room/${roomRef.id}`);
             }else{
@@ -36,7 +37,7 @@ export default function RoomCreation() {
         }
 
         catch (error) {
-            console.error('Error fetching cart items:', error);
+            console.error('Error: ', error);
         }
     };
 

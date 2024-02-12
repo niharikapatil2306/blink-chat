@@ -20,7 +20,6 @@ export default function SendMessage(props) {
     await addDoc(collection(roomId, "messages"), {
       text: message,
       name: displayName,
-      avatar: photoURL,
       createdAt: serverTimestamp(),
       uid,
     });

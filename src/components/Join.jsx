@@ -19,7 +19,7 @@ export default function Join(props) {
             });
             navigate(`/room/${props.roomId}`);
             }
-            
+            console.log(roomRef.data())
         }
         catch (error) {
             console.error('Error fetching cart items:', error);
