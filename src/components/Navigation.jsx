@@ -17,7 +17,7 @@ export default function Navigation(props) {
     }
 
     const createRoom = () => {
-        navigate("/create-room")
+        navigate("/")
     }
 
     return(

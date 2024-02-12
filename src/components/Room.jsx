@@ -7,13 +7,13 @@ import { auth, db } from "../firebase";
 import Welcome from "./Welcome";
 import { collection, doc, getDoc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import RoomCreation from "./RoomCreation";
 
 export default function Room() {
 
     const { roomId } = useParams();
     let roomInUser = false
     const [show, setshow] = useState(false)
-    const [loading, setLoading] = useState(true);
 
     const fetchRooms = async () => {
         try {
@@ -31,8 +31,9 @@ export default function Room() {
     useEffect(() => {
 
             const unsubscribe = onSnapshot((collection(db, 'rooms')), (snapshot) => {
+                if(roomId){
                 fetchRooms();
-                
+                }
                 
             });
             return () => unsubscribe();
@@ -51,7 +52,15 @@ export default function Room() {
                                     <RoomsList />
                                 </Col>
                                 <Col>
-                                    {show && <ChatBox roomId={roomId} />}
+                                    {show?
+                                    (roomId? 
+                                         <ChatBox roomId={roomId} />
+                                         :
+                                        <RoomCreation />
+                                    )
+                                    :
+                                    <RoomCreation />
+                                    }
                                 </Col>
                             </Row>
                         </Container>

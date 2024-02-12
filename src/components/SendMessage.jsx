@@ -31,7 +31,7 @@ export default function SendMessage(props) {
       <Form className="border-1 border-[#a19ca5] p-1 flex rounded-xl" onSubmit={(event) => sendMessage(event)}>
         <FormControl value={message} onChange={(e) => setMessage(e.target.value)}
           className="border-0 bg-transparent text-xl font-semibold rounded-none" type="text" placeholder="New Message . . ." />
-        <Button type="submit" className="rounded-md font-semibold bg-[#c2a0b6] border-0 hover:bg-[#baaad4] activebutton ">
+        <Button type="submit" className="rounded-md font-semibold bg-[#c2a0b6] border-0 hover:bg-[#baaad4] activebutton">
           Send!
         </Button>
       </Form>
