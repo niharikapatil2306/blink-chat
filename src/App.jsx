@@ -7,12 +7,19 @@ import Room from './components/Room';
 
 function App() {
 
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-24 w-24 border-t-2 border-b-2 border-[#c2a0b6]"></div>
+      </div>
+    );
+  }
   return (
     <Routes>
-      <Route  path="/" element={user? <Room /> : <Welcome />} />
-      <Route path="/room/:roomId" element={<Room /> } />
+      <Route path="/" element={user ? <Room /> : <Welcome />} />
+      <Route path="/room/:roomId" element={<Room />} />
     </Routes>
   )
 }

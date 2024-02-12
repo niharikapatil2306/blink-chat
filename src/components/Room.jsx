@@ -67,7 +67,7 @@ export default function Room() {
 
                     </div>
                 :
-                <Welcome />
+                <p>loading...</p>
             }
         </>
     );

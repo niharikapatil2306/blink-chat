@@ -1,23 +1,17 @@
 import { Button, Container } from "react-bootstrap";
 import Navigation from "./Navigation";
 import google from "../assets/google.svg";
-import { auth, db } from "../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Welcome(props) {
-
-    const [user] = useAuthState(auth);
-
-    const navigate = useNavigate()
 
     const handleClick = async (e) => {
         e.preventDefault();
         try {
             const provider = new GoogleAuthProvider();
             await signInWithRedirect(auth, provider);
-            navigate('/');
         } catch (error) {
             console.error("Error signing in with Google:", error);
         }
