@@ -46,12 +46,12 @@ export default function Room() {
             {auth.currentUser ?
                     <div className="flex flex-col h-screen w-screen">
                         <Navigation />
-                        <Container fluid className="flex flex-1 w-full g-0 ">
+                        <Container fluid className="flex flex-1 w-full g-0 overflow-hidden ">
                             <Row className="w-full g-0">
                                 <Col xs={4} className="bg-[#baaad4] bg-opacity-40">
                                     <RoomsList />
                                 </Col>
-                                <Col>
+                                <Col className="h-full">
                                     {show?
                                     (roomId? 
                                          <ChatBox roomId={roomId} />
