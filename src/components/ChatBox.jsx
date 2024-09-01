@@ -11,7 +11,6 @@ import { auth, db } from "../firebase";
 import Message from "./Message";
 import SendMessage from "./SendMessage";
 import { Container } from "react-bootstrap";
-import Navigation from "./Navigation";
 import bg from "../assets/bg.gif"
 
 export default function ChatBox(props) {

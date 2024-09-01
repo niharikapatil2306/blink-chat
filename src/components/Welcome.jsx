@@ -3,7 +3,6 @@ import Navigation from "./Navigation";
 import google from "../assets/google.svg";
 import { auth } from "../firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { useState } from "react";
 
 export default function Welcome(props) {
 
