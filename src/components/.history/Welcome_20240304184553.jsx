@@ -2,7 +2,7 @@ import { Button, Container } from "react-bootstrap";
 import Navigation from "./Navigation";
 import google from "../assets/google.svg";
 import { auth } from "../firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 
 export default function Welcome(props) {
 
@@ -10,7 +10,7 @@ export default function Welcome(props) {
         e.preventDefault();
         try {
             const provider = new GoogleAuthProvider();
-            await signInWithPopup(auth, provider);
+            await signInWithRedirect(auth, provider);
         } catch (error) {
             console.error("Error signing in with Google:", error);
         }
