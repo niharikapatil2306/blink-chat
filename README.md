@@ -36,15 +36,12 @@
  ## Installation
  1. Clone the repository
  ```
- git clone https://github.com/yourusername/chat-application.git
- git clone https://github.com/yourusername/chat-application.git
- cd chat-application
+ git clone https://github.com/niharikapatil2306/blink-chat.git
  cd chat-application
  ```
 
  2. Install dependencies
  ```
- npm install
  npm install
  ```
 
@@ -52,33 +49,24 @@
  ```
 .env file in the root directory with your Firebase configuration
  VITE_FIREBASE_API_KEY=your-api-key
- VITE_FIREBASE_API_KEY=your-api-key
- VITE_FIREBASE_AUTH_DOMAIN=your-auth-domain
  VITE_FIREBASE_AUTH_DOMAIN=your-auth-domain
  VITE_FIREBASE_PROJECT_ID=your-project-id
- VITE_FIREBASE_PROJECT_ID=your-project-id
- VITE_FIREBASE_STORAGE_BUCKET=your-storage-bucket
  VITE_FIREBASE_STORAGE_BUCKET=your-storage-bucket
  VITE_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
- VITE_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
- VITE_FIREBASE_APP_ID=your-app-id
  VITE_FIREBASE_APP_ID=your-app-id
 ```
 
  4. Start the development server
  ```
  npm run dev
- npm run dev
  ```
 
  5. Build for production
  ```
  npm run build
- npm run build
  ```
  6. Preview production build
  ```
- npm run preview
  npm run preview
  ```
 Usage
