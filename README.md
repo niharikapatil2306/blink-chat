@@ -37,7 +37,7 @@
  1. Clone the repository
  ```
  git clone https://github.com/niharikapatil2306/blink-chat.git
- cd chat-application
+ cd blink-chat
  ```
 
  2. Install dependencies
